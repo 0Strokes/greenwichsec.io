@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Greenwich Security Labs | Offensive security laboratory</title>
+<meta name="description" content="Greenwich Security Labs is a research-led offensive security team: penetration testing, security reviews, cloud and Kubernetes, red teaming, identity and CI/CD security, plus hands-on workshops and training.">
+<meta property="og:title" content="Greenwich Security Labs">
+<meta property="og:description" content="Every system keeps time. We find the drift.">
+<meta property="og:url" content="https://greenwichsec.io/">
+<meta property="og:image" content="https://greenwichsec.io/assets/img/og.png">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="canonical" href="https://greenwichsec.io/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script>if('IntersectionObserver' in window)document.documentElement.classList.add('js')</script>
+<style>
+html{scroll-behavior:smooth;scroll-padding-top:32px}
+body{margin:0;background:#0A0A0A}
+a{color:#E8453A}a:hover{color:#F2E8D5}
+@keyframes gs-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes gs-spin-rev{from{transform:rotate(360deg)}to{transform:rotate(0deg)}}
+@keyframes gs-pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.gs-spin{animation:gs-spin 240s linear infinite}
+.gs-ring{animation:gs-spin-rev 90s linear infinite}
+.gs-dot{animation:gs-pulse 2s ease-in-out infinite}
+.gs-row{transition:background .25s ease}
+.gs-row:hover{background:#121010}
+.gs-row:hover .gs-arrow{color:#E8453A;transform:translateX(6px)}
+.gs-arrow{transition:transform .25s ease,color .25s ease}
+.gs-card{transition:border-color .25s ease}
+.gs-card:hover{border-color:rgba(232,69,58,.6)}
+.gs-btn{transition:background .2s ease,color .2s ease}
+.gs-btn:hover{background:#F2E8D5;color:#0A0A0A}
+.gs-ghost{transition:border-color .2s ease}
+.gs-ghost:hover{border-color:#F2E8D5;color:#F2E8D5}
+input:focus,select:focus,textarea:focus{outline:2px solid #E8453A;outline-offset:1px}
+.gs-lang{display:flex;align-items:center;gap:6px}
+.gs-lang button{background:none;border:0;padding:4px 2px;margin:0;font:inherit;letter-spacing:inherit;text-transform:inherit;color:#8F8676;cursor:pointer;transition:color .2s ease}
+.gs-lang button:hover{color:#F2E8D5}
+.gs-lang button[aria-pressed="true"]{color:#E8453A}
+.gs-progress{position:fixed;top:0;left:0;right:0;height:2px;background:#E8453A;transform-origin:0 50%;transform:scaleX(0);z-index:60;pointer-events:none}
+.gs-nav{position:sticky;top:0;z-index:50;border-bottom:1px solid transparent;transition:transform .5s cubic-bezier(.2,.7,.2,1),background-color .3s ease,border-color .3s ease}
+.gs-nav.is-stuck{background:rgba(10,10,10,.82);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom-color:rgba(242,232,213,.1)}
+.gs-nav.is-hidden{transform:translateY(-100%)}
+.js .gs-reveal{opacity:0;transform:translate3d(0,32px,0);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1),background-color .25s ease,border-color .25s ease}
+.js[data-dir="up"] .gs-reveal:not(.is-in){transform:translate3d(0,-32px,0)}
+.js .gs-reveal.is-in{opacity:1;transform:none}
+@media (max-width: 900px){.gs-meridian{display:none}}
+@media (prefers-reduced-motion: reduce){.gs-spin,.gs-ring,.gs-dot{animation:none}html{scroll-behavior:auto}.gs-nav{transition:none}.js .gs-reveal,.js[data-dir="up"] .gs-reveal:not(.is-in){opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<div style="background: #0A0A0A; color: #F2E8D5; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 17px; line-height: 1.6; overflow-x: clip">
+<div class="gs-progress" aria-hidden="true"></div>
+
+<!-- TOP BAR -->
+<div style="border-bottom: 1px solid rgba(242,232,213,0.1)">
+<div style="max-width: 1320px; margin: 0 auto; padding: 10px 40px; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8F8676">
+<span class="gs-lang" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><span aria-hidden="true">/</span><button type="button" data-lang="es" aria-pressed="false">ES</button></span>
+<span>51°28′40″N · 0°00′00″ · <span data-gmt>00:00:00</span> GMT</span>
+</div>
+</div>
+
+<!-- NAV -->
+<div class="gs-nav">
+<div style="max-width: 1320px; margin: 0 auto; padding: 18px 40px; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px">
+<a href="#top" style="display: flex; align-items: center; gap: 14px; text-decoration: none">
+<img src="assets/img/clock.png" alt="" style="width: 44px; height: 44px; object-fit: cover; mix-blend-mode: lighten">
+<span style="display: flex; flex-direction: column; line-height: 1.15">
+<span style="font-family: Montserrat, sans-serif; font-weight: 700; font-size: 18px; letter-spacing: 0.08em; color: #F2E8D5">GREENWICH</span>
+<span style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 9.5px; letter-spacing: 0.38em; color: #E8453A">SECURITY LABS</span>
+</span>
+</a>
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 36px; font-size: 14px; letter-spacing: 0.02em">
+<a href="#services" style="color: #BDB4A3; text-decoration: none">Services</a>
+<a href="#method" style="color: #BDB4A3; text-decoration: none">Method</a>
+<a href="#lab" style="color: #BDB4A3; text-decoration: none">Research</a>
+<a href="#about" style="color: #BDB4A3; text-decoration: none">About</a>
+<a href="#contact" class="gs-btn" style="background: #E8453A; color: #0A0A0A; text-decoration: none; font-weight: 500; padding: 11px 20px; border-radius: 2px">Start an engagement</a>
+</nav>
+</div>
+</div>
+
+<!-- HERO -->
+<div id="top" style="position: relative; max-width: 1320px; margin: 0 auto; padding: clamp(16px, 3vw, 40px) 40px 120px; box-sizing: border-box">
+<div class="gs-meridian" aria-hidden="true" style="position: absolute; top: 0; bottom: 0; left: 58%; width: 1px; background: linear-gradient(to bottom, rgba(232,69,58,0), rgba(232,69,58,0.55) 20%, rgba(232,69,58,0.55) 80%, rgba(232,69,58,0))"></div>
+<div style="position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 56px">
+<div style="flex: 1 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 32px; position: relative; z-index: 1">
+<div class="gs-eyebrow" style="display: flex; align-items: center; gap: 14px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #E8453A">
+<span style="width: 32px; height: 1px; background: #E8453A"></span>Offensive security laboratory
+</div>
+<h1 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 700; font-size: clamp(46px, 6.4vw, 96px); line-height: 0.98; letter-spacing: -0.035em; color: #F2E8D5">Every system keeps time. <span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -0.01em; color: #E8453A">We find the drift.</span></h1>
+<p style="margin: 0; max-width: 520px; font-size: 19px; font-weight: 300; line-height: 1.65; color: #BDB4A3">Greenwich Security Labs is a research-led team of offensive engineers. We test applications, cloud, identity and infrastructure the way capable adversaries do, and we stay until the gaps are closed.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 14px; padding-top: 4px">
+<a href="#contact" class="gs-btn" style="background: #E8453A; color: #0A0A0A; text-decoration: none; font-family: Montserrat, sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; padding: 18px 30px; border-radius: 2px">Book a scoping call</a>
+<a href="#services" class="gs-ghost" style="color: #F2E8D5; text-decoration: none; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; padding: 17px 30px; border: 1px solid rgba(242,232,213,0.3); border-radius: 2px">View services</a>
+</div>
+</div>
+<div style="flex: 1 1 440px; min-width: 0; position: relative; display: flex; justify-content: center; align-items: center">
+<div aria-hidden="true" style="position: absolute; width: 118%; max-width: 640px; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,69,58,0.2), rgba(232,69,58,0.04) 60%, rgba(10,10,10,0) 100%)"></div>
+<svg class="gs-ring" aria-hidden="true" viewBox="0 0 200 200" style="position: absolute; width: 112%; max-width: 620px; height: auto">
+<circle cx="100" cy="100" r="97" fill="none" stroke="rgba(242,232,213,0.16)" stroke-width="0.3" stroke-dasharray="0.4 2.1"/>
+<circle cx="100" cy="100" r="99.5" fill="none" stroke="rgba(232,69,58,0.35)" stroke-width="0.25"/>
+</svg>
+<img class="gs-spin" src="assets/img/clock.png" alt="Greenwich Security Labs astronomical clock mark" style="position: relative; width: 100%; max-width: 540px; height: auto; border-radius: 50%; mix-blend-mode: lighten">
+</div>
+</div>
+
+<!-- hero footer stats -->
+<div style="position: relative; margin-top: 96px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); border-top: 1px solid rgba(242,232,213,0.12)">
+<div style="padding: 28px 28px 0 0; display: flex; flex-direction: column; gap: 6px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8F8676">Approach</div>
+<div style="font-size: 16px; color: #F2E8D5">Manual, adversary-led testing. Tools assist, people decide.</div>
+</div>
+<div style="padding: 28px 28px 0 0; display: flex; flex-direction: column; gap: 6px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8F8676">Coverage</div>
+<div style="font-size: 16px; color: #F2E8D5">Web, API, mobile, cloud, Kubernetes, identity, CI/CD.</div>
+</div>
+<div style="padding: 28px 28px 0 0; display: flex; flex-direction: column; gap: 6px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8F8676">Deliverable</div>
+<div style="font-size: 16px; color: #F2E8D5">Proof of impact, ranked fixes and a free retest.</div>
+</div>
+<div style="padding: 28px 0 0 0; display: flex; flex-direction: column; gap: 6px">
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8F8676">Reach</div>
+<div style="font-size: 16px; color: #F2E8D5">Remote worldwide, on site by arrangement.</div>
+</div>
+</div>
+</div>
+
+<!-- MANIFESTO BAND -->
+<div style="background: #F2E8D5; color: #0A0A0A">
+<div style="max-width: 1320px; margin: 0 auto; padding: 96px 40px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 40px 80px; align-items: flex-end">
+<div style="flex: 0 0 auto; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #A3271E">00 / Premise</div>
+<p style="flex: 1 1 640px; margin: 0; font-family: Montserrat, sans-serif; font-weight: 600; font-size: clamp(28px, 3.4vw, 48px); line-height: 1.15; letter-spacing: -0.02em">Greenwich is where the world agreed what time it is. We bring the same discipline to security: <span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; color: #A3271E">one precise reference</span> for how exposed you really are.</p>
+</div>
+</div>
+
+<!-- SERVICES -->
+<div id="services" style="max-width: 1320px; margin: 0 auto; padding: 136px 40px 40px; box-sizing: border-box">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px 64px; padding-bottom: 64px">
+<div style="flex: 1 1 560px; display: flex; flex-direction: column; gap: 20px">
+<div class="gs-eyebrow" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #E8453A">01 / Services</div>
+<h2 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 700; font-size: clamp(36px, 4.2vw, 60px); line-height: 1.02; letter-spacing: -0.03em; color: #F2E8D5">Seven disciplines. <span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; color: #BDB4A3">One standard.</span></h2>
+</div>
+<p style="flex: 0 1 400px; margin: 0; font-size: 16px; color: #BDB4A3">Commission a single assessment or build a continuous programme. Each engagement is scoped to your risk, not to a template.</p>
+</div>
+
+<div style="border-top: 1px solid rgba(242,232,213,0.14)">
+
+<a href="#contact" class="gs-row" style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 40px; padding: 36px 8px; border-bottom: 1px solid rgba(242,232,213,0.14); text-decoration: none; color: #F2E8D5">
+<span style="flex: 0 0 56px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; color: #E8453A">I</span>
+<span style="flex: 1 1 340px; font-family: Montserrat, sans-serif; font-weight: 600; font-size: clamp(24px, 2.4vw, 34px); letter-spacing: -0.02em; line-height: 1.15">Penetration testing</span>
+<span style="flex: 2 1 380px; font-size: 16px; color: #BDB4A3">Web applications, APIs, mobile and networks, tested by hand. We chain small findings into the paths a real attacker would take.</span>
+<span class="gs-arrow" aria-hidden="true" style="flex: 0 0 auto; font-size: 22px; color: #8F8676">→</span>
+</a>
+
+<a href="#contact" class="gs-row" style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 40px; padding: 36px 8px; border-bottom: 1px solid rgba(242,232,213,0.14); text-decoration: none; color: #F2E8D5">
+<span style="flex: 0 0 56px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; color: #E8453A">II</span>
+<span style="flex: 1 1 340px; font-family: Montserrat, sans-serif; font-weight: 600; font-size: clamp(24px, 2.4vw, 34px); letter-spacing: -0.02em; line-height: 1.15">Security reviews</span>
+<span style="flex: 2 1 380px; font-size: 16px; color: #BDB4A3">Architecture, design and source code review with threat modelling. Catch the flaw in the diagram, before it ships.</span>
+<span class="gs-arrow" aria-hidden="true" style="flex: 0 0 auto; font-size: 22px; color: #8F8676">→</span>
+</a>
+
+<a href="#contact" class="gs-row" style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 40px; padding: 36px 8px; border-bottom: 1px solid rgba(242,232,213,0.14); text-decoration: none; color: #F2E8D5">
+<span style="flex: 0 0 56px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; color: #E8453A">III</span>
+<span style="flex: 1 1 340px; font-family: Montserrat, sans-serif; font-weight: 600; font-size: clamp(24px, 2.4vw, 34px); letter-spacing: -0.02em; line-height: 1.15">Cloud and Kubernetes</span>
+<span style="flex: 2 1 380px; font-size: 16px; color: #BDB4A3">AWS, GCP and Azure configuration and IAM, plus cluster, workload and container boundary testing down to the node.</span>
+<span class="gs-arrow" aria-hidden="true" style="flex: 0 0 auto; font-size: 22px; color: #8F8676">→</span>
+</a>
+
+<a href="#contact" class="gs-row" style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 40px; padding: 36px 8px; border-bottom: 1px solid rgba(242,232,213,0.14); text-decoration: none; color: #F2E8D5">
+<span style="flex: 0 0 56px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; color: #E8453A">IV</span>
+<span style="flex: 1 1 340px; font-family: Montserrat, sans-serif; font-weight: 600; font-size: clamp(24px, 2.4vw, 34px); letter-spacing: -0.02em; line-height: 1.15">Red team operations</span>
+<span style="flex: 2 1 380px; font-size: 16px; color: #BDB4A3">Objective-driven campaigns against people, process and detection. Find out what your defenders see, and when.</span>
+<span class="gs-arrow" aria-hidden="true" style="flex: 0 0 auto; font-size: 22px; color: #8F8676">→</span>
+</a>
+
+<a href="#contact" class="gs-row" style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 40px; padding: 36px 8px; border-bottom: 1px solid rgba(242,232,213,0.14); text-decoration: none; color: #F2E8D5">
+<span style="flex: 0 0 56px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; color: #E8453A">V</span>
+<span style="flex: 1 1 340px; font-family: Montserrat, sans-serif; font-weight: 600; font-size: clamp(24px, 2.4vw, 34px); letter-spacing: -0.02em; line-height: 1.15">Identity and access</span>
+<span style="flex: 2 1 380px; font-size: 16px; color: #BDB4A3">SSO, OAuth and OIDC flows, LDAP and directory services, and the trust relationships quietly connecting them.</span>
+<span class="gs-arrow" aria-hidden="true" style="flex: 0 0 auto; font-size: 22px; color: #8F8676">→</span>
+</a>
+
+<a href="#contact" class="gs-row" style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 40px; padding: 36px 8px; border-bottom: 1px solid rgba(242,232,213,0.14); text-decoration: none; color: #F2E8D5">
+<span style="flex: 0 0 56px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; color: #E8453A">VI</span>
+<span style="flex: 1 1 340px; font-family: Montserrat, sans-serif; font-weight: 600; font-size: clamp(24px, 2.4vw, 34px); letter-spacing: -0.02em; line-height: 1.15">CI/CD and supply chain</span>
+<span style="flex: 2 1 380px; font-size: 16px; color: #BDB4A3">Pipelines, runners, secrets and dependencies. Every route from a developer's commit to your production systems.</span>
+<span class="gs-arrow" aria-hidden="true" style="flex: 0 0 auto; font-size: 22px; color: #8F8676">→</span>
+</a>
+
+<a href="#training" class="gs-row" style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 40px; padding: 36px 8px; border-bottom: 1px solid rgba(242,232,213,0.14); text-decoration: none; color: #F2E8D5">
+<span style="flex: 0 0 56px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; color: #E8453A">VII</span>
+<span style="flex: 1 1 340px; font-family: Montserrat, sans-serif; font-weight: 600; font-size: clamp(24px, 2.4vw, 34px); letter-spacing: -0.02em; line-height: 1.15">Workshops and training</span>
+<span style="flex: 2 1 380px; font-size: 16px; color: #BDB4A3">Hands-on courses for engineering and security teams, taught by the consultants who run our engagements. Real techniques in prepared labs, not slides.</span>
+<span class="gs-arrow" aria-hidden="true" style="flex: 0 0 auto; font-size: 22px; color: #8F8676">→</span>
+</a>
+
+</div>
+
+<!-- featured workshop -->
+<div id="training" style="margin-top: 96px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+<div style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 18px">
+<div class="gs-eyebrow" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #8F8676">Featured workshop</div>
+<h3 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 32px; line-height: 1.15; letter-spacing: -0.02em; color: #F2E8D5">Vulnerability hunting <span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; color: #E8453A">with AI.</span></h3>
+<p style="margin: 0; font-size: 16px; color: #BDB4A3">A practical, eight-hour workshop on applying AI tools and techniques to find security vulnerabilities. It is taught by the consultants who lead our penetration tests, using worked examples and lab environments built for the course.</p>
+<p style="margin: 0; font-size: 16px; color: #BDB4A3">Book it on its own, or add it to an engagement so your team keeps the method after we leave. We also build custom training around your stack.</p>
+</div>
+<div style="flex: 1.3 1 520px; min-width: 0; box-sizing: border-box; background: #0F0F0F; border: 1px solid rgba(242,232,213,0.14); border-radius: 4px; overflow: hidden">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 20px; border-bottom: 1px solid rgba(242,232,213,0.1); font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; color: #8F8676">
+<span>GSL-WORKSHOP-01</span><span>8 hours · hands-on</span>
+</div>
+<ol style="list-style: none; margin: 0; padding: 8px 24px; display: flex; flex-direction: column">
+<li style="display: flex; gap: 20px; padding: 16px 0; border-bottom: 1px solid rgba(242,232,213,0.08)"><span style="flex: 0 0 auto; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; color: #E8453A">01</span><span style="font-size: 15.5px; color: #F2E8D5">Foundations of AI-assisted vulnerability hunting</span></li>
+<li style="display: flex; gap: 20px; padding: 16px 0; border-bottom: 1px solid rgba(242,232,213,0.08)"><span style="flex: 0 0 auto; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; color: #E8453A">02</span><span style="font-size: 15.5px; color: #F2E8D5">Setting up and using AI tools for security analysis</span></li>
+<li style="display: flex; gap: 20px; padding: 16px 0; border-bottom: 1px solid rgba(242,232,213,0.08)"><span style="flex: 0 0 auto; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; color: #E8453A">03</span><span style="font-size: 15.5px; color: #F2E8D5">Source code analysis and spotting likely vulnerabilities</span></li>
+<li style="display: flex; gap: 20px; padding: 16px 0; border-bottom: 1px solid rgba(242,232,213,0.08)"><span style="flex: 0 0 auto; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; color: #E8453A">04</span><span style="font-size: 15.5px; color: #F2E8D5">Scripts and automation to support security testing</span></li>
+<li style="display: flex; gap: 20px; padding: 16px 0"><span style="flex: 0 0 auto; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; color: #E8453A">05</span><span style="font-size: 15.5px; color: #F2E8D5">Lab exercises: find and validate real vulnerabilities</span></li>
+</ol>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; padding: 18px 24px 24px; border-top: 1px solid rgba(242,232,213,0.1); font-size: 14px">
+<div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8F8676">Format</div><div style="color: #F2E8D5">Lab-based, practical</div></div>
+<div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8F8676">Audience</div><div style="color: #F2E8D5">Developers, security teams</div></div>
+<div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8F8676">Instructors</div><div style="color: #F2E8D5">Our pentest leads</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- METHOD -->
+<div id="method" style="max-width: 1320px; margin: 0 auto; padding: 136px 40px 40px; box-sizing: border-box">
+<div style="display: flex; flex-direction: column; gap: 20px; max-width: 760px; padding-bottom: 72px">
+<div class="gs-eyebrow" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #E8453A">02 / Method</div>
+<h2 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 700; font-size: clamp(36px, 4.2vw, 60px); line-height: 1.02; letter-spacing: -0.03em; color: #F2E8D5">A clear clock, <span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; color: #BDB4A3">from first call to proof of fix.</span></h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 0">
+
+<div style="padding: 0 32px 0 0; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; align-items: center; gap: 12px"><span style="width: 12px; height: 12px; border-radius: 50%; border: 2px solid #E8453A; box-sizing: border-box"></span><span style="flex: 1; height: 1px; background: rgba(242,232,213,0.18)"></span></div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.14em; color: #8F8676">T+00 · XII</div>
+<h3 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 24px; letter-spacing: -0.01em; color: #F2E8D5">Scope</h3>
+<p style="margin: 0; font-size: 15.5px; color: #BDB4A3">We agree targets, rules of engagement and timing on one call. You receive a fixed proposal before any work begins.</p>
+</div>
+
+<div style="padding: 0 32px 0 0; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; align-items: center; gap: 12px"><span style="width: 12px; height: 12px; border-radius: 50%; border: 2px solid #E8453A; box-sizing: border-box"></span><span style="flex: 1; height: 1px; background: rgba(242,232,213,0.18)"></span></div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.14em; color: #8F8676">T+01 · III</div>
+<h3 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 24px; letter-spacing: -0.01em; color: #F2E8D5">Operate</h3>
+<p style="margin: 0; font-size: 15.5px; color: #BDB4A3">Senior engineers test by hand with our own tooling. Critical issues are raised the same day through a shared channel.</p>
+</div>
+
+<div style="padding: 0 32px 0 0; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; align-items: center; gap: 12px"><span style="width: 12px; height: 12px; border-radius: 50%; border: 2px solid #E8453A; box-sizing: border-box"></span><span style="flex: 1; height: 1px; background: rgba(242,232,213,0.18)"></span></div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.14em; color: #8F8676">T+02 · VI</div>
+<h3 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 24px; letter-spacing: -0.01em; color: #F2E8D5">Report</h3>
+<p style="margin: 0; font-size: 15.5px; color: #BDB4A3">An executive narrative plus technical findings with reproduction steps and fixes ranked by effort and risk.</p>
+</div>
+
+<div style="padding: 0; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; align-items: center; gap: 12px"><span style="width: 12px; height: 12px; border-radius: 50%; background: #E8453A"></span><span style="flex: 1; height: 1px; background: rgba(242,232,213,0)"></span></div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.14em; color: #8F8676">T+03 · IX</div>
+<h3 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 24px; letter-spacing: -0.01em; color: #F2E8D5">Verify</h3>
+<p style="margin: 0; font-size: 15.5px; color: #BDB4A3">We retest every fix and reissue the report, so you hold evidence of closure for auditors, customers and your board.</p>
+</div>
+
+</div>
+
+<!-- sample finding -->
+<div style="margin-top: 96px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+<div style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 18px">
+<div class="gs-eyebrow" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #8F8676">What you receive</div>
+<h3 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 32px; line-height: 1.15; letter-spacing: -0.02em; color: #F2E8D5">Findings written for the people who fix them.</h3>
+<p style="margin: 0; font-size: 16px; color: #BDB4A3">Each issue carries its business impact, a reproducible proof, and a remediation your engineers can merge. No scanner noise, no padding.</p>
+</div>
+<div style="flex: 1.3 1 520px; min-width: 0; box-sizing: border-box; background: #0F0F0F; border: 1px solid rgba(242,232,213,0.14); border-radius: 4px; overflow: hidden">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 20px; border-bottom: 1px solid rgba(242,232,213,0.1); font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; color: #8F8676">
+<span>GSL-EXAMPLE-014</span><span>Illustrative finding</span>
+</div>
+<div style="padding: 24px 24px 28px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+<span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #0A0A0A; background: #E8453A; padding: 4px 10px; border-radius: 2px">Critical</span>
+<span style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 19px; color: #F2E8D5">CI runner token reachable from pull requests</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; font-size: 14px">
+<div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8F8676">Impact</div><div style="color: #F2E8D5">Production deploy</div></div>
+<div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8F8676">Path</div><div style="color: #F2E8D5">Fork → runner → registry</div></div>
+<div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8F8676">Fix effort</div><div style="color: #F2E8D5">Low</div></div>
+</div>
+<div style="background: #0A0A0A; border: 1px solid rgba(242,232,213,0.08); border-radius: 2px; padding: 16px 18px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.75; color: #BDB4A3; overflow-x: auto; white-space: pre">
+<span style="color: #8F8676">$</span> step 1  open PR from fork with modified workflow
+<span style="color: #8F8676">$</span> step 2  read mounted runner credentials
+<span style="color: #E8453A">!</span> step 3  push signed image to release registry</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- RESEARCH -->
+<div id="lab" style="max-width: 1320px; margin: 0 auto; padding: 136px 40px 40px; box-sizing: border-box">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; padding-bottom: 56px">
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div class="gs-eyebrow" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #E8453A">03 / From the lab</div>
+<h2 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 700; font-size: clamp(36px, 4.2vw, 60px); line-height: 1.02; letter-spacing: -0.03em; color: #F2E8D5">Research <span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; color: #BDB4A3">we pursue.</span></h2>
+</div>
+<p style="flex: 0 1 400px; margin: 0; font-size: 16px; color: #BDB4A3">The questions we work on between engagements. What we learn here ends up in your report and in our workshops.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px">
+
+<div class="gs-card" style="display: flex; flex-direction: column; gap: 20px; padding: 32px; min-height: 280px; box-sizing: border-box; background: #0F0F0F; border: 1px solid rgba(242,232,213,0.12); border-radius: 4px; color: #F2E8D5">
+<div style="display: flex; justify-content: space-between; gap: 12px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8F8676"><span style="color: #E8453A">AI-assisted hunting</span></div>
+<div style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 22px; line-height: 1.25; letter-spacing: -0.01em">Teaching models to read code like an attacker</div>
+<div style="margin-top: auto; font-size: 15px; color: #BDB4A3">Where language models speed up vulnerability discovery, where they hallucinate, and how to keep a human deciding.</div>
+</div>
+
+<div class="gs-card" style="display: flex; flex-direction: column; gap: 20px; padding: 32px; min-height: 280px; box-sizing: border-box; background: #0F0F0F; border: 1px solid rgba(242,232,213,0.12); border-radius: 4px; color: #F2E8D5">
+<div style="display: flex; justify-content: space-between; gap: 12px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8F8676"><span style="color: #E8453A">Microarchitecture</span></div>
+<div style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 22px; line-height: 1.25; letter-spacing: -0.01em">When the hardware keeps its own time</div>
+<div style="margin-top: auto; font-size: 15px; color: #BDB4A3">Timing and transient-execution side channels in shared and multi-tenant infrastructure.</div>
+</div>
+
+<div class="gs-card" style="display: flex; flex-direction: column; gap: 20px; padding: 32px; min-height: 280px; box-sizing: border-box; background: #0F0F0F; border: 1px solid rgba(242,232,213,0.12); border-radius: 4px; color: #F2E8D5">
+<div style="display: flex; justify-content: space-between; gap: 12px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8F8676"><span style="color: #E8453A">Containers</span></div>
+<div style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 22px; line-height: 1.25; letter-spacing: -0.01em">Breaking the boundary you trust</div>
+<div style="margin-top: auto; font-size: 15px; color: #BDB4A3">Escape paths from misconfigured workloads, runtimes and admission controls to the node and beyond.</div>
+</div>
+
+<div class="gs-card" style="display: flex; flex-direction: column; gap: 20px; padding: 32px; min-height: 280px; box-sizing: border-box; background: #0F0F0F; border: 1px solid rgba(242,232,213,0.12); border-radius: 4px; color: #F2E8D5">
+<div style="display: flex; justify-content: space-between; gap: 12px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8F8676"><span style="color: #E8453A">Identity</span></div>
+<div style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 22px; line-height: 1.25; letter-spacing: -0.01em">Trust nobody remembers granting</div>
+<div style="margin-top: auto; font-size: 15px; color: #BDB4A3">OAuth, OIDC and directory trust chains that quietly turn one compromised account into many.</div>
+</div>
+
+</div>
+</div>
+
+<!-- ABOUT / PANTHER -->
+<div id="about" style="max-width: 1320px; margin: 0 auto; padding: 136px 40px 40px; box-sizing: border-box">
+<div style="position: relative; overflow: hidden; border-radius: 4px; background: #0F0F0F; border: 1px solid rgba(242,232,213,0.12); display: flex; flex-wrap: wrap; align-items: stretch">
+<div style="flex: 1 1 380px; min-height: 380px; position: relative; display: flex; align-items: center; justify-content: center; background: radial-gradient(closest-side, rgba(232,69,58,0.18), rgba(15,15,15,0) 75%); padding: 48px; box-sizing: border-box">
+<img src="assets/img/panther.png" alt="Greenwich panther mark" style="width: 100%; max-width: 320px; height: auto; mix-blend-mode: lighten">
+</div>
+<div style="flex: 1.4 1 480px; min-width: 0; padding: 64px 56px; box-sizing: border-box; display: flex; flex-direction: column; gap: 32px">
+<div class="gs-eyebrow" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #E8453A">04 / The team</div>
+<h2 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 700; font-size: clamp(34px, 3.6vw, 52px); line-height: 1.05; letter-spacing: -0.03em; color: #F2E8D5">Quiet. Precise. <span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; color: #E8453A">Patient.</span></h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 28px 32px">
+<div style="display: flex; flex-direction: column; gap: 8px; padding-top: 16px; border-top: 1px solid rgba(242,232,213,0.14)">
+<div style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 17px; color: #F2E8D5">Research-led</div>
+<div style="font-size: 15px; color: #BDB4A3">We study how systems fail at a low level and build our own tooling, so we reach what scanners cannot.</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; padding-top: 16px; border-top: 1px solid rgba(242,232,213,0.14)">
+<div style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 17px; color: #F2E8D5">Senior hands only</div>
+<div style="font-size: 15px; color: #BDB4A3">The two consultants on your scoping call run the engagement themselves. Nothing is handed to junior staff.</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; padding-top: 16px; border-top: 1px solid rgba(242,232,213,0.14)">
+<div style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 17px; color: #F2E8D5">Discreet by default</div>
+<div style="font-size: 15px; color: #BDB4A3">NDAs as standard, encrypted evidence handling, data destroyed at close.</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; padding-top: 16px; border-top: 1px solid rgba(242,232,213,0.14)">
+<div style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 17px; color: #F2E8D5">Knowledge transfer</div>
+<div style="font-size: 15px; color: #BDB4A3">Every engagement closes with a walkthrough for your engineers. Your team keeps the method, not just the report.</div>
+</div>
+</div>
+</div>
+</div>
+<!-- experience -->
+<div style="margin-top: 96px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px 64px">
+<div style="flex: 1 1 560px; display: flex; flex-direction: column; gap: 20px">
+<div class="gs-eyebrow" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #8F8676">Who you work with</div>
+<h3 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 32px; line-height: 1.15; letter-spacing: -0.02em; color: #F2E8D5">Two senior consultants. <span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; color: #E8453A">No hand-offs.</span></h3>
+</div>
+<p style="flex: 0 1 400px; margin: 0; font-size: 16px; color: #BDB4A3">International experience assessing applications, APIs and distributed services that handle very high traffic and terabyte-scale data.</p>
+</div>
+<div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); border-top: 1px solid rgba(242,232,213,0.12)">
+<div style="padding: 28px 28px 0 0; display: flex; flex-direction: column; gap: 6px">
+<div style="font-family: Montserrat, sans-serif; font-weight: 700; font-size: clamp(36px, 3.6vw, 52px); line-height: 1; letter-spacing: -0.03em; color: #F2E8D5">19+</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8F8676">Years combined</div>
+</div>
+<div style="padding: 28px 28px 0 0; display: flex; flex-direction: column; gap: 6px">
+<div style="font-family: Montserrat, sans-serif; font-weight: 700; font-size: clamp(36px, 3.6vw, 52px); line-height: 1; letter-spacing: -0.03em; color: #F2E8D5">39</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8F8676">CVEs published</div>
+</div>
+<div style="padding: 28px 28px 0 0; display: flex; flex-direction: column; gap: 6px">
+<div style="font-family: Montserrat, sans-serif; font-weight: 700; font-size: clamp(36px, 3.6vw, 52px); line-height: 1; letter-spacing: -0.03em; color: #F2E8D5">2</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8F8676">Exploit certifications: OSED, GXPN</div>
+</div>
+<div style="padding: 28px 0 0 0; display: flex; flex-direction: column; gap: 6px">
+<div style="font-family: Montserrat, sans-serif; font-weight: 700; font-size: clamp(36px, 3.6vw, 52px); line-height: 1; letter-spacing: -0.03em; color: #F2E8D5">LATAM</div>
+<div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8F8676">Banking engagements</div>
+</div>
+</div>
+<div style="margin-top: 48px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px">
+<div class="gs-card" style="display: flex; flex-direction: column; gap: 18px; padding: 36px; box-sizing: border-box; background: #0F0F0F; border: 1px solid rgba(242,232,213,0.12); border-radius: 4px">
+<div style="display: flex; justify-content: space-between; gap: 12px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8F8676"><span style="color: #E8453A">Consultant 01</span><span>12+ years</span></div>
+<h3 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 24px; line-height: 1.2; letter-spacing: -0.01em; color: #F2E8D5">Principal Security Engineer</h3>
+<p style="margin: 0; font-size: 15.5px; color: #BDB4A3">Former penetration testing engineer at a major cloud provider, now leading offensive security and detection at a global trading platform across cloud, Kubernetes and identity. Has tested major Latin American banks and published research on low-level vulnerabilities, identity systems and container security.</p>
+<div style="margin-top: auto; padding-top: 6px; display: flex; flex-wrap: wrap; gap: 8px"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #BDB4A3; border: 1px solid rgba(242,232,213,0.18); border-radius: 2px; padding: 5px 10px">Cloud</span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #BDB4A3; border: 1px solid rgba(242,232,213,0.18); border-radius: 2px; padding: 5px 10px">Kubernetes</span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #BDB4A3; border: 1px solid rgba(242,232,213,0.18); border-radius: 2px; padding: 5px 10px">Identity</span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #BDB4A3; border: 1px solid rgba(242,232,213,0.18); border-radius: 2px; padding: 5px 10px">Detection</span></div>
+</div>
+<div class="gs-card" style="display: flex; flex-direction: column; gap: 18px; padding: 36px; box-sizing: border-box; background: #0F0F0F; border: 1px solid rgba(242,232,213,0.12); border-radius: 4px">
+<div style="display: flex; justify-content: space-between; gap: 12px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8F8676"><span style="color: #E8453A">Consultant 02</span><span>7+ years</span></div>
+<h3 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 24px; line-height: 1.2; letter-spacing: -0.01em; color: #F2E8D5">Senior Penetration Tester</h3>
+<p style="margin: 0; font-size: 15.5px; color: #BDB4A3">Leads security assessments of distributed services, APIs and cloud infrastructure at a major cloud provider, finding complex authorisation and business-logic flaws. Author or co-author of 39 CVEs.</p>
+<div style="margin-top: auto; padding-top: 6px; display: flex; flex-wrap: wrap; gap: 8px"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #BDB4A3; border: 1px solid rgba(242,232,213,0.18); border-radius: 2px; padding: 5px 10px">OSED</span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #BDB4A3; border: 1px solid rgba(242,232,213,0.18); border-radius: 2px; padding: 5px 10px">GXPN</span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #BDB4A3; border: 1px solid rgba(242,232,213,0.18); border-radius: 2px; padding: 5px 10px">APIs</span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #BDB4A3; border: 1px solid rgba(242,232,213,0.18); border-radius: 2px; padding: 5px 10px">Exploit development</span></div>
+</div>
+</div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" style="max-width: 1320px; margin: 0 auto; padding: 136px 40px 120px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 64px">
+<div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 28px">
+<div class="gs-eyebrow" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #E8453A">05 / Contact</div>
+<h2 style="margin: 0; font-family: Montserrat, sans-serif; font-weight: 700; font-size: clamp(40px, 5vw, 76px); line-height: 0.98; letter-spacing: -0.035em; color: #F2E8D5">Set your <span style="font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; color: #E8453A">reference point.</span></h2>
+<p style="margin: 0; max-width: 440px; color: #BDB4A3">Tell us what you need tested or taught. We reply within one business day with questions and a proposed scope.</p>
+<div style="display: flex; flex-direction: column; gap: 14px; padding-top: 8px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 14px">
+<a href="mailto:hello@greenwichsec.io" style="text-decoration: none">hello@greenwichsec.io</a>
+</div>
+</div>
+<form id="gs-form" style="flex: 1 1 520px; min-width: 0; box-sizing: border-box; background: #0F0F0F; border: 1px solid rgba(242,232,213,0.12); border-radius: 4px; padding: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="gs-name" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8F8676">Name</label>
+<input id="gs-name" name="name" type="text" autocomplete="name" style="box-sizing: border-box; width: 100%; padding: 14px 16px; background: #0A0A0A; color: #F2E8D5; border: 1px solid rgba(242,232,213,0.24); border-radius: 2px; font-family: inherit; font-size: 16px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="gs-company" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8F8676">Company</label>
+<input id="gs-company" name="company" type="text" autocomplete="organization" style="box-sizing: border-box; width: 100%; padding: 14px 16px; background: #0A0A0A; color: #F2E8D5; border: 1px solid rgba(242,232,213,0.24); border-radius: 2px; font-family: inherit; font-size: 16px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="gs-email" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8F8676">Work email</label>
+<input id="gs-email" name="email" type="email" required autocomplete="email" style="box-sizing: border-box; width: 100%; padding: 14px 16px; background: #0A0A0A; color: #F2E8D5; border: 1px solid rgba(242,232,213,0.24); border-radius: 2px; font-family: inherit; font-size: 16px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="gs-service" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8F8676">Service</label>
+<select id="gs-service" name="service" style="box-sizing: border-box; width: 100%; padding: 14px 16px; background: #0A0A0A; color: #F2E8D5; border: 1px solid rgba(242,232,213,0.24); border-radius: 2px; font-family: inherit; font-size: 16px">
+<option>Penetration testing</option>
+<option>Security review</option>
+<option>Cloud and Kubernetes</option>
+<option>Red team operation</option>
+<option>Identity and access</option>
+<option>CI/CD and supply chain</option>
+<option>Workshops and training</option>
+<option>Not sure yet</option>
+</select>
+</div>
+<div style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 8px">
+<label for="gs-msg" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8F8676">What should we know</label>
+<textarea id="gs-msg" name="msg" rows="4" style="box-sizing: border-box; width: 100%; padding: 14px 16px; background: #0A0A0A; color: #F2E8D5; border: 1px solid rgba(242,232,213,0.24); border-radius: 2px; font-family: inherit; font-size: 16px; resize: vertical"></textarea>
+</div>
+<div style="grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px">
+<span style="font-size: 13px; color: #8F8676">Opens a pre-filled email to our team. Never shared.</span>
+<button type="submit" class="gs-btn" style="background: #E8453A; color: #0A0A0A; border: 0; cursor: pointer; font-family: Montserrat, sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; padding: 18px 32px; border-radius: 2px; min-height: 52px">Send request</button>
+</div>
+</form>
+</div>
+
+<!-- FOOTER -->
+<div style="border-top: 1px solid rgba(242,232,213,0.12); overflow: hidden">
+<div style="max-width: 1320px; margin: 0 auto; padding: 56px 40px 0; box-sizing: border-box; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 10px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.1em; color: #8F8676">
+<span>GREENWICHSEC.IO</span>
+<span>© 2026 Greenwich Security Labs</span>
+</div>
+<nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 12px 32px; font-size: 14px">
+<a href="#services" style="color: #BDB4A3; text-decoration: none">Services</a>
+<a href="#method" style="color: #BDB4A3; text-decoration: none">Method</a>
+<a href="#lab" style="color: #BDB4A3; text-decoration: none">Research</a>
+<a href="#about" style="color: #BDB4A3; text-decoration: none">About</a>
+<a href="#contact" style="color: #BDB4A3; text-decoration: none">Contact</a>
+<a href="mailto:hello@greenwichsec.io?subject=Responsible%20disclosure" style="color: #BDB4A3; text-decoration: none">Responsible disclosure</a>
+</nav>
+</div>
+<div aria-hidden="true" style="max-width: 1320px; margin: 0 auto; padding: 40px 40px 0; box-sizing: border-box; font-family: Montserrat, sans-serif; font-weight: 800; font-size: clamp(64px, 15.5vw, 228px); line-height: 0.8; letter-spacing: -0.045em; color: #141414; white-space: nowrap; text-align: center; transform: translateY(14%)">GREENWICH</div>
+</div>
+
+</div>
+<script src="js/i18n.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
