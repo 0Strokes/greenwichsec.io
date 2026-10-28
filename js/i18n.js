@@ -38,7 +38,7 @@
 
     // services
     '01 / Services': '01 / Servicios',
-    'Seven disciplines.': 'Siete disciplinas.',
+    'Eight disciplines.': 'Ocho disciplinas.',
     'One standard.': 'Un mismo estándar.',
     'Commission a single assessment or build a continuous programme. Each engagement is scoped to your risk, not to a template.':
       'Contrata una evaluación puntual o arma un programa continuo. Cada proyecto se diseña según tu riesgo, no a partir de una plantilla.',
@@ -48,6 +48,9 @@
     'Security reviews': 'Revisiones de seguridad',
     'Architecture, design and source code review with threat modelling. Catch the flaw in the diagram, before it ships.':
       'Revisamos arquitectura, diseño y código fuente con modelado de amenazas, para encontrar la falla en el diagrama antes de que llegue a producción.',
+    'Security strategy and secure development': 'Estrategia de seguridad y desarrollo seguro',
+    'Security programmes designed around your risks and maturity, including a Secure SDLC with processes, owners, metrics and a roadmap to put it in place.':
+      'Diseñamos programas de seguridad a la medida de tus riesgos y tu nivel de madurez, incluido un ciclo de desarrollo seguro (Secure SDLC) con procesos, responsables, métricas y una hoja de ruta para implementarlo.',
     'Cloud and Kubernetes': 'Cloud y Kubernetes',
     'AWS, GCP and Azure configuration and IAM, plus cluster, workload and container boundary testing down to the node.':
       'Configuración e IAM en AWS, GCP y Azure, además de pruebas sobre clústeres, workloads y aislamiento de contenedores, hasta llegar al nodo.',
@@ -195,7 +198,7 @@
 
   var META_ES = {
     title: 'Greenwich Security Labs | Laboratorio de seguridad ofensiva',
-    description: 'Equipo de seguridad ofensiva que trabaja desde la investigación: pruebas de penetración, revisiones de seguridad, cloud y Kubernetes, red teaming, identidad, CI/CD, workshops y capacitaciones.',
+    description: 'Equipo de seguridad ofensiva que trabaja desde la investigación: pruebas de penetración, revisiones de seguridad, estrategia y desarrollo seguro, cloud y Kubernetes, red teaming, identidad, CI/CD, workshops y capacitaciones.',
     alt: {
       'Greenwich Security Labs astronomical clock mark': 'Reloj astronómico, logo de Greenwich Security Labs',
       'Greenwich panther mark': 'Pantera, logo de Greenwich Security Labs'
