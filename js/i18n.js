@@ -2,7 +2,7 @@
 // text node for its Spanish version, keyed by the English text with
 // whitespace collapsed. If you change English copy in index.html, update the
 // matching key here, or that string will stay in English.
-// The Spanish is written for a Latin American audience and uses "tú".
+// The Spanish is written for a professional Latin American audience and uses "usted".
 (function () {
   var ES = {
     // nav
@@ -11,197 +11,197 @@
     'Research': 'Investigación',
     'About': 'Equipo',
     'Contact': 'Contacto',
-    'Start an engagement': 'Hablemos',
+    'Start an engagement': 'Solicitar propuesta',
 
     // hero
     'Offensive security laboratory': 'Laboratorio de seguridad ofensiva',
-    'Every system keeps time.': 'Todo sistema marca la hora.',
-    'We find the drift.': 'Encontramos el desfase.',
+    'Every system keeps time.': 'Todo sistema tiene un margen de error.',
+    'We find the drift.': 'Nosotros lo encontramos.',
     'Greenwich Security Labs is a research-led team of offensive engineers. We test applications, cloud, identity and infrastructure the way capable adversaries do, and we stay until the gaps are closed.':
-      'Somos un equipo de ingenieros de seguridad ofensiva que trabaja desde la investigación. Atacamos aplicaciones, nube, identidad e infraestructura como lo haría un adversario de verdad, y no nos vamos hasta que las brechas queden cerradas.',
-    'Book a scoping call': 'Agenda una llamada',
+      'Greenwich Security Labs es un equipo de ingenieros especializados en seguridad ofensiva, con un enfoque basado en la investigación. Evaluamos aplicaciones, entornos cloud, sistemas de identidad e infraestructura tal como lo haría un adversario sofisticado, y acompañamos a cada cliente hasta que las brechas quedan cerradas.',
+    'Book a scoping call': 'Agendar una reunión',
     'View services': 'Ver servicios',
     'Approach': 'Enfoque',
-    'Manual, adversary-led testing. Tools assist, people decide.': 'Pruebas manuales, con mentalidad de atacante. Las herramientas ayudan; deciden las personas.',
+    'Manual, adversary-led testing. Tools assist, people decide.': 'Pruebas manuales desde la perspectiva del atacante. Las herramientas asisten; el criterio es humano.',
     'Coverage': 'Cobertura',
-    'Web, API, mobile, cloud, Kubernetes, identity, CI/CD.': 'Web, APIs, mobile, cloud, Kubernetes, identidad y CI/CD.',
+    'Web, API, mobile, cloud, Kubernetes, identity, CI/CD.': 'Web, APIs, aplicaciones móviles, cloud, Kubernetes, identidad y CI/CD.',
     'Deliverable': 'Entregable',
-    'Proof of impact, ranked fixes and a free retest.': 'Impacto demostrado, correcciones priorizadas y retest incluido.',
+    'Proof of impact, ranked fixes and a free retest.': 'Evidencia del impacto, correcciones priorizadas y un retest sin costo adicional.',
     'Reach': 'Modalidad',
-    'Remote worldwide, on site by arrangement.': 'Remoto desde cualquier lugar, presencial cuando haga falta.',
+    'Remote worldwide, on site by arrangement.': 'Remota a nivel global y presencial según requerimiento.',
 
     // premise
     '00 / Premise': '00 / Premisa',
-    'Greenwich is where the world agreed what time it is. We bring the same discipline to security:': 'En Greenwich el mundo se puso de acuerdo sobre qué hora es. Llevamos esa misma precisión a la seguridad:',
-    'one precise reference': 'una referencia exacta',
-    'for how exposed you really are.': 'de qué tan expuesto estás de verdad.',
+    'Greenwich is where the world agreed what time it is. We bring the same discipline to security:': 'Greenwich es la referencia con la que el mundo mide el tiempo. Aplicamos ese mismo rigor a la seguridad:',
+    'one precise reference': 'una medición precisa',
+    'for how exposed you really are.': 'de su nivel real de exposición.',
 
     // services
     '01 / Services': '01 / Servicios',
-    'Eight disciplines.': 'Ocho disciplinas.',
-    'One standard.': 'Un mismo estándar.',
+    'Eight disciplines.': 'Ocho especialidades.',
+    'One standard.': 'Un mismo nivel de exigencia.',
     'Commission a single assessment or build a continuous programme. Each engagement is scoped to your risk, not to a template.':
-      'Contrata una evaluación puntual o arma un programa continuo. Cada proyecto se diseña según tu riesgo, no a partir de una plantilla.',
+      'Contrate una evaluación puntual o un programa continuo. Cada servicio se define en función de su nivel de riesgo, no de una plantilla.',
     'Penetration testing': 'Pruebas de penetración',
     'Web applications, APIs, mobile and networks, tested by hand. We chain small findings into the paths a real attacker would take.':
-      'Aplicaciones web, APIs, apps móviles y redes, probadas a mano. Encadenamos hallazgos pequeños hasta armar el camino que seguiría un atacante real.',
+      'Aplicaciones web, APIs, aplicaciones móviles y redes, evaluadas de forma manual. Encadenamos hallazgos aparentemente menores para reproducir las rutas que seguiría un atacante real.',
     'Security reviews': 'Revisiones de seguridad',
     'Architecture, design and source code review with threat modelling. Catch the flaw in the diagram, before it ships.':
-      'Revisamos arquitectura, diseño y código fuente con modelado de amenazas, para encontrar la falla en el diagrama antes de que llegue a producción.',
+      'Revisión de arquitectura, diseño y código fuente, con modelado de amenazas. Identificamos las fallas desde el diseño, antes de que lleguen a producción.',
     'Security strategy and secure development': 'Estrategia de seguridad y desarrollo seguro',
     'Security programmes designed around your risks and maturity, including a Secure SDLC with processes, owners, metrics and a roadmap to put it in place.':
-      'Diseñamos programas de seguridad a la medida de tus riesgos y tu nivel de madurez, incluido un ciclo de desarrollo seguro (Secure SDLC) con procesos, responsables, métricas y una hoja de ruta para implementarlo.',
+      'Diseñamos programas de seguridad adaptados a los riesgos y al nivel de madurez de cada organización, incluido un ciclo de desarrollo seguro (Secure SDLC) con procesos, responsables, métricas y una hoja de ruta para su implementación.',
     'Cloud and Kubernetes': 'Cloud y Kubernetes',
     'AWS, GCP and Azure configuration and IAM, plus cluster, workload and container boundary testing down to the node.':
-      'Configuración e IAM en AWS, GCP y Azure, además de pruebas sobre clústeres, workloads y aislamiento de contenedores, hasta llegar al nodo.',
-    'Red team operations': 'Red teaming',
+      'Configuración e IAM en AWS, GCP y Azure, y pruebas sobre clústeres, workloads y aislamiento de contenedores hasta el nivel del nodo.',
+    'Red team operations': 'Operaciones de red team',
     'Objective-driven campaigns against people, process and detection. Find out what your defenders see, and when.':
-      'Campañas con objetivos concretos contra personas, procesos y capacidades de detección. Descubre qué ve tu equipo de defensa, y en qué momento.',
+      'Campañas orientadas a objetivos sobre personas, procesos y capacidades de detección, para conocer qué identifica su equipo de defensa y en qué momento.',
     'Identity and access': 'Identidad y accesos',
     'SSO, OAuth and OIDC flows, LDAP and directory services, and the trust relationships quietly connecting them.':
-      'Flujos de SSO, OAuth y OIDC, LDAP y servicios de directorio, y las relaciones de confianza que los conectan sin que nadie lo note.',
+      'Flujos de SSO, OAuth y OIDC, LDAP y servicios de directorio, y las relaciones de confianza que los vinculan.',
     'CI/CD and supply chain': 'CI/CD y cadena de suministro',
     "Pipelines, runners, secrets and dependencies. Every route from a developer's commit to your production systems.":
-      'Pipelines, runners, secretos y dependencias: cada camino entre el commit de un desarrollador y tus sistemas en producción.',
-    'Workshops and training': 'Workshops y capacitaciones',
+      'Pipelines, runners, secretos y dependencias: cada ruta entre el commit de un desarrollador y sus sistemas productivos.',
+    'Workshops and training': 'Workshops y capacitación',
     'Hands-on courses for engineering and security teams, taught by the consultants who run our engagements. Real techniques in prepared labs, not slides.':
-      'Cursos prácticos para equipos de desarrollo y seguridad, dictados por los mismos consultores que ejecutan nuestros proyectos. Técnicas reales en laboratorios preparados, nada de diapositivas.',
+      'Programas prácticos para equipos de desarrollo y seguridad, impartidos por los mismos consultores que ejecutan nuestros servicios. Técnicas reales en entornos de laboratorio, no presentaciones teóricas.',
 
     // workshop
     'Featured workshop': 'Workshop destacado',
-    'with AI.': 'con IA.',
+    'with AI.': 'con inteligencia artificial.',
     'A practical, eight-hour workshop on applying AI tools and techniques to find security vulnerabilities. It is taught by the consultants who lead our penetration tests, using worked examples and lab environments built for the course.':
-      'Un workshop práctico de ocho horas para aprender a usar herramientas y técnicas de IA en la búsqueda de vulnerabilidades. Lo dictan los mismos consultores que lideran nuestros pentests, con ejemplos reales y laboratorios armados para el curso.',
+      'Workshop práctico de ocho horas sobre el uso de herramientas y técnicas de inteligencia artificial aplicadas a la identificación de vulnerabilidades. Lo imparten los consultores responsables de nuestras pruebas de penetración, con ejemplos y entornos de laboratorio preparados específicamente para la capacitación.',
     'Book it on its own, or add it to an engagement so your team keeps the method after we leave. We also build custom training around your stack.':
-      'Puedes contratarlo por separado o sumarlo a un proyecto, para que tu equipo se quede con el método cuando terminemos. También armamos capacitaciones a la medida de tu stack.',
-    '8 hours · hands-on': '8 horas · 100% práctico',
-    'Foundations of AI-assisted vulnerability hunting': 'Fundamentos del vulnerability hunting asistido por IA',
-    'Setting up and using AI tools for security analysis': 'Cómo configurar y usar herramientas de IA para análisis de seguridad',
-    'Source code analysis and spotting likely vulnerabilities': 'Análisis de código fuente para detectar posibles vulnerabilidades',
-    'Scripts and automation to support security testing': 'Scripts y automatizaciones para apoyar las pruebas',
-    'Lab exercises: find and validate real vulnerabilities': 'Laboratorio: encontrar y validar vulnerabilidades reales',
+      'Puede contratarse de forma independiente o como complemento de un servicio, para que su equipo incorpore la metodología. También desarrollamos capacitaciones a medida de su stack tecnológico.',
+    '8 hours · hands-on': '8 horas · modalidad práctica',
+    'Foundations of AI-assisted vulnerability hunting': 'Fundamentos de vulnerability hunting asistido por IA',
+    'Setting up and using AI tools for security analysis': 'Configuración y uso de herramientas de IA para análisis de seguridad',
+    'Source code analysis and spotting likely vulnerabilities': 'Análisis de código fuente e identificación de posibles vulnerabilidades',
+    'Scripts and automation to support security testing': 'Desarrollo de scripts y automatizaciones para pruebas de seguridad',
+    'Lab exercises: find and validate real vulnerabilities': 'Ejercicios prácticos de identificación y validación de vulnerabilidades',
     'Format': 'Formato',
     'Lab-based, practical': 'Práctico, en laboratorio',
-    'Audience': 'Para quién',
-    'Developers, security teams': 'Desarrolladores y equipos de seguridad',
+    'Audience': 'Dirigido a',
+    'Developers, security teams': 'Equipos de desarrollo y seguridad',
     'Instructors': 'Instructores',
-    'Our pentest leads': 'Quienes lideran nuestros pentests',
+    'Our pentest leads': 'Consultores responsables del pentest',
 
     // method
     '02 / Method': '02 / Metodología',
-    'A clear clock,': 'Un reloj claro,',
-    'from first call to proof of fix.': 'de la primera llamada a la corrección verificada.',
+    'A clear clock,': 'Un proceso claro,',
+    'from first call to proof of fix.': 'de la primera reunión a la verificación final.',
     'Scope': 'Alcance',
     'We agree targets, rules of engagement and timing on one call. You receive a fixed proposal before any work begins.':
-      'En una sola llamada definimos objetivos, reglas y tiempos. Antes de empezar recibes una propuesta con precio cerrado.',
+      'En una reunión inicial definimos objetivos, reglas de intervención y plazos. Antes de comenzar, recibe una propuesta con alcance y costo cerrados.',
     'Operate': 'Ejecución',
     'Senior engineers test by hand with our own tooling. Critical issues are raised the same day through a shared channel.':
-      'Ingenieros senior prueban a mano, con herramientas propias. Si aparece algo crítico, te avisamos ese mismo día por un canal compartido.',
+      'Ingenieros senior realizan las pruebas de forma manual, con herramientas propias. Los hallazgos críticos se notifican el mismo día a través de un canal dedicado.',
     'Report': 'Informe',
     'An executive narrative plus technical findings with reproduction steps and fixes ranked by effort and risk.':
-      'Un resumen ejecutivo y los hallazgos técnicos, con pasos para reproducirlos y correcciones ordenadas por esfuerzo y riesgo.',
+      'Un resumen ejecutivo y el detalle técnico de cada hallazgo, con pasos de reproducción y recomendaciones priorizadas según esfuerzo y riesgo.',
     'Verify': 'Verificación',
     'We retest every fix and reissue the report, so you hold evidence of closure for auditors, customers and your board.':
-      'Volvemos a probar cada corrección y actualizamos el informe, para que tengas evidencia del cierre frente a auditores, clientes y directorio.',
-    'What you receive': 'Lo que recibes',
-    'Findings written for the people who fix them.': 'Hallazgos escritos para quienes los van a corregir.',
+      'Validamos cada corrección y emitimos una versión actualizada del informe, como evidencia de cierre ante auditores, clientes y la alta dirección.',
+    'What you receive': 'Entregables',
+    'Findings written for the people who fix them.': 'Hallazgos pensados para quienes deben corregirlos.',
     'Each issue carries its business impact, a reproducible proof, and a remediation your engineers can merge. No scanner noise, no padding.':
-      'Cada hallazgo trae su impacto en el negocio, una prueba reproducible y una corrección que tu equipo puede aplicar directamente. Sin ruido de scanners ni relleno.',
-    'Illustrative finding': 'Hallazgo de ejemplo',
+      'Cada hallazgo documenta su impacto en el negocio, una prueba de concepto reproducible y una recomendación de remediación aplicable. Sin ruido de herramientas automáticas ni contenido de relleno.',
+    'Illustrative finding': 'Hallazgo ilustrativo',
     'Critical': 'Crítico',
-    'CI runner token reachable from pull requests': 'Token del runner de CI expuesto a pull requests',
+    'CI runner token reachable from pull requests': 'Token del runner de CI accesible desde pull requests',
     'Impact': 'Impacto',
-    'Production deploy': 'Deploy a producción',
+    'Production deploy': 'Despliegue en producción',
     'Path': 'Ruta',
     'Fix effort': 'Esfuerzo',
     'Low': 'Bajo',
-    'step 1 open PR from fork with modified workflow': 'paso 1  abrir un PR desde un fork con el workflow modificado',
-    'step 2 read mounted runner credentials': 'paso 2  leer las credenciales montadas en el runner',
-    'step 3 push signed image to release registry': 'paso 3  publicar una imagen firmada en el registry de release',
+    'step 1 open PR from fork with modified workflow': 'paso 1  PR desde un fork con un workflow modificado',
+    'step 2 read mounted runner credentials': 'paso 2  lectura de credenciales montadas en el runner',
+    'step 3 push signed image to release registry': 'paso 3  publicación de una imagen firmada en el registry',
 
     // research
-    '03 / From the lab': '03 / Desde el laboratorio',
-    'we pursue.': 'propia.',
+    '03 / From the lab': '03 / Laboratorio',
+    'we pursue.': 'aplicada.',
     'The questions we work on between engagements. What we learn here ends up in your report and in our workshops.':
-      'Lo que investigamos entre un proyecto y otro. Lo que aprendemos aquí termina en tus informes y en nuestros workshops.',
-    'AI-assisted hunting': 'Hunting asistido por IA',
-    'Teaching models to read code like an attacker': 'Enseñarle a un modelo a leer código como un atacante',
+      'Las líneas de investigación que desarrollamos de forma continua. Lo que aprendemos se refleja en nuestros informes y en nuestras capacitaciones.',
+    'AI-assisted hunting': 'Inteligencia artificial',
+    'Teaching models to read code like an attacker': 'Modelos de lenguaje que analizan código como un atacante',
     'Where language models speed up vulnerability discovery, where they hallucinate, and how to keep a human deciding.':
-      'Dónde los modelos de lenguaje aceleran la búsqueda de vulnerabilidades, dónde alucinan y cómo mantener a una persona tomando las decisiones.',
+      'Dónde la IA acelera el descubrimiento de vulnerabilidades, dónde genera resultados erróneos y cómo mantener el criterio humano en cada decisión.',
     'Microarchitecture': 'Microarquitectura',
-    'When the hardware keeps its own time': 'Cuando el hardware lleva su propia hora',
+    'When the hardware keeps its own time': 'Cuando el hardware revela más de lo que debe',
     'Timing and transient-execution side channels in shared and multi-tenant infrastructure.':
-      'Canales laterales de timing y de ejecución transitoria en infraestructura compartida y multi-tenant.',
+      'Canales laterales de temporización y de ejecución transitoria en infraestructura compartida y multi-tenant.',
     'Containers': 'Contenedores',
-    'Breaking the boundary you trust': 'Romper el límite en el que confías',
+    'Breaking the boundary you trust': 'Los límites reales del aislamiento',
     'Escape paths from misconfigured workloads, runtimes and admission controls to the node and beyond.':
-      'Cómo escapar desde workloads, runtimes y controles de admisión mal configurados hasta el nodo, y más allá.',
+      'Rutas de escape desde workloads, runtimes y controles de admisión mal configurados hacia el nodo y el resto del clúster.',
     'Identity': 'Identidad',
-    'Trust nobody remembers granting': 'Permisos que nadie recuerda haber dado',
+    'Trust nobody remembers granting': 'Relaciones de confianza olvidadas',
     'OAuth, OIDC and directory trust chains that quietly turn one compromised account into many.':
-      'Cadenas de confianza en OAuth, OIDC y directorios que, sin hacer ruido, convierten una cuenta comprometida en muchas.',
+      'Cadenas de confianza en OAuth, OIDC y servicios de directorio que permiten que una sola cuenta comprometida se convierta en muchas.',
 
     // team
-    '04 / The team': '04 / El equipo',
+    '04 / The team': '04 / Equipo',
     'Quiet. Precise.': 'Discretos. Precisos.',
-    'Patient.': 'Pacientes.',
-    'Research-led': 'Investigación primero',
+    'Patient.': 'Metódicos.',
+    'Research-led': 'Enfoque en investigación',
     'We study how systems fail at a low level and build our own tooling, so we reach what scanners cannot.':
-      'Estudiamos cómo fallan los sistemas a bajo nivel y desarrollamos nuestras propias herramientas, para llegar a donde un scanner no llega.',
-    'Senior hands only': 'Solo perfiles senior',
+      'Estudiamos cómo fallan los sistemas a bajo nivel y desarrollamos herramientas propias para llegar a donde las soluciones automatizadas no llegan.',
+    'Senior hands only': 'Exclusivamente perfiles senior',
     'The two consultants on your scoping call run the engagement themselves. Nothing is handed to junior staff.':
-      'Los dos consultores con los que hablas en la primera llamada son los que hacen el trabajo. Nada se delega a perfiles junior.',
-    'Discreet by default': 'Discreción ante todo',
+      'Los dos consultores que participan en la reunión inicial son quienes ejecutan el servicio. Ninguna tarea se delega a personal junior.',
+    'Discreet by default': 'Confidencialidad',
     'NDAs as standard, encrypted evidence handling, data destroyed at close.':
-      'NDA desde el primer día, evidencias cifradas y eliminación de datos al cerrar el proyecto.',
+      'Acuerdos de confidencialidad como estándar, manejo cifrado de la evidencia y eliminación de los datos al cierre del servicio.',
     'Knowledge transfer': 'Transferencia de conocimiento',
     'Every engagement closes with a walkthrough for your engineers. Your team keeps the method, not just the report.':
-      'Cada proyecto cierra con una sesión para tu equipo técnico. Te quedas con el método, no solo con el informe.',
-    'Who you work with': 'Con quién vas a trabajar',
+      'Cada servicio concluye con una sesión técnica con su equipo, para que la organización conserve la metodología y no solo el informe.',
+    'Who you work with': 'Con quién trabajará',
     'Two senior consultants.': 'Dos consultores senior.',
     'No hand-offs.': 'Sin intermediarios.',
     'International experience assessing applications, APIs and distributed services that handle very high traffic and terabyte-scale data.':
-      'Experiencia internacional evaluando aplicaciones, APIs y servicios distribuidos con muchísimo tráfico y datos a escala de terabytes.',
+      'Trayectoria internacional en la evaluación de aplicaciones, APIs y servicios distribuidos que procesan grandes volúmenes de tráfico y datos a escala de terabytes.',
     'Years combined': 'Años de experiencia combinada',
     'CVEs published': 'CVEs publicados',
-    'Exploit certifications: OSED, GXPN': 'Certificaciones en exploits: OSED, GXPN',
-    'Banking engagements': 'Proyectos con bancos',
+    'Exploit certifications: OSED, GXPN': 'Certificaciones en explotación: OSED, GXPN',
+    'Banking engagements': 'Proyectos en banca',
     'Consultant 01': 'Consultor 01',
     'Consultant 02': 'Consultor 02',
     '12+ years': '12+ años',
     '7+ years': '7+ años',
     'Former penetration testing engineer at a major cloud provider, now leading offensive security and detection at a global trading platform across cloud, Kubernetes and identity. Has tested major Latin American banks and published research on low-level vulnerabilities, identity systems and container security.':
-      'Antes fue penetration testing engineer en uno de los grandes proveedores cloud; hoy lidera seguridad ofensiva y detección en una plataforma global de trading, con foco en cloud, Kubernetes e identidad. Ha hecho pentests para grandes bancos de Latinoamérica e investigado vulnerabilidades de bajo nivel, sistemas de identidad y seguridad de contenedores.',
+      'Fue Penetration Testing Engineer en un proveedor cloud de primer nivel y actualmente lidera iniciativas de seguridad ofensiva y detección en una plataforma global de trading, que abarcan seguridad cloud, Kubernetes y sistemas de identidad. Ha ejecutado pruebas de penetración para importantes instituciones bancarias de Latinoamérica y desarrollado investigación técnica sobre vulnerabilidades de bajo nivel, identidad y seguridad de contenedores.',
     'Leads security assessments of distributed services, APIs and cloud infrastructure at a major cloud provider, finding complex authorisation and business-logic flaws. Author or co-author of 39 CVEs.':
-      'Lidera evaluaciones de seguridad de servicios distribuidos, APIs e infraestructura cloud en uno de los grandes proveedores cloud, donde encuentra fallas complejas de autorización y de lógica de negocio. Autor o coautor de 39 CVEs.',
+      'Lidera evaluaciones de seguridad de servicios distribuidos, APIs e infraestructura cloud en un proveedor cloud de primer nivel, con foco en vulnerabilidades complejas de autorización y lógica de negocio. Autor y coautor de 39 CVEs.',
     'Detection': 'Detección',
     'Exploit development': 'Desarrollo de exploits',
 
     // contact
     '05 / Contact': '05 / Contacto',
-    'Set your': 'Fija tu',
-    'reference point.': 'punto de referencia.',
+    'Set your': 'Hablemos de',
+    'reference point.': 'su seguridad.',
     'Tell us what you need tested or taught. We reply within one business day with questions and a proposed scope.':
-      'Cuéntanos qué necesitas evaluar o aprender. Te respondemos en un día hábil con algunas preguntas y una propuesta de alcance.',
+      'Cuéntenos qué necesita evaluar o en qué área desea capacitar a su equipo. Respondemos en un día hábil con preguntas y una propuesta de alcance.',
     'Name': 'Nombre',
     'Company': 'Empresa',
-    'Work email': 'Email de trabajo',
+    'Work email': 'Correo corporativo',
     'Service': 'Servicio',
     'Security review': 'Revisión de seguridad',
-    'Red team operation': 'Red teaming',
-    'Not sure yet': 'Todavía no lo sé',
+    'Red team operation': 'Operación de red team',
+    'Not sure yet': 'Aún no lo tengo definido',
     'What should we know': '¿Qué deberíamos saber?',
-    'Opens a pre-filled email to our team. Never shared.': 'Se abre un email ya completo para nuestro equipo. No compartimos tus datos.',
+    'Opens a pre-filled email to our team. Never shared.': 'Se abrirá un correo con esta información dirigido a nuestro equipo. Sus datos no se comparten con terceros.',
     'Send request': 'Enviar solicitud',
-    'Responsible disclosure': 'Reporte de vulnerabilidades'
+    'Responsible disclosure': 'Divulgación responsable'
   };
 
   var META_ES = {
     title: 'Greenwich Security Labs | Laboratorio de seguridad ofensiva',
-    description: 'Equipo de seguridad ofensiva que trabaja desde la investigación: pruebas de penetración, revisiones de seguridad, estrategia y desarrollo seguro, cloud y Kubernetes, red teaming, identidad, CI/CD, workshops y capacitaciones.',
+    description: 'Equipo de seguridad ofensiva con enfoque en investigación: pruebas de penetración, revisiones de seguridad, estrategia y desarrollo seguro, cloud y Kubernetes, red team, identidad, CI/CD, workshops y capacitación.',
     alt: {
-      'Greenwich Security Labs astronomical clock mark': 'Reloj astronómico, logo de Greenwich Security Labs',
-      'Greenwich panther mark': 'Pantera, logo de Greenwich Security Labs'
+      'Greenwich Security Labs astronomical clock mark': 'Reloj astronómico, logotipo de Greenwich Security Labs',
+      'Greenwich panther mark': 'Pantera, logotipo de Greenwich Security Labs'
     }
   };
 
