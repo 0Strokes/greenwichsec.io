@@ -35,7 +35,7 @@
     if (nav) {
       var stuck = y > navTop + 1;
       nav.classList.toggle('is-stuck', stuck);
-      nav.classList.toggle('is-hidden', stuck && root.dataset.dir === 'down' && y > 400);
+      nav.classList.toggle('is-hidden', stuck && root.dataset.dir === 'down' && y > 400 && !nav.classList.contains('is-open'));
     }
     if (bar) {
       var max = root.scrollHeight - window.innerHeight;
@@ -47,6 +47,24 @@
     if (!ticking) { ticking = true; requestAnimationFrame(update); }
   }, { passive: true });
   update();
+})();
+
+// Mobile menu: the button toggles the link panel; picking a link or
+// pressing Escape closes it.
+(function () {
+  var nav = document.querySelector('.gs-nav');
+  var btn = nav && nav.querySelector('.gs-menu');
+  if (!btn) return;
+  function set(open) {
+    nav.classList.toggle('is-open', open);
+    btn.setAttribute('aria-expanded', String(open));
+  }
+  btn.addEventListener('click', function () { set(!nav.classList.contains('is-open')); });
+  nav.querySelectorAll('.gs-links a').forEach(function (a) {
+    a.addEventListener('click', function () { set(false); });
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+  window.matchMedia('(min-width: 761px)').addEventListener('change', function (e) { if (e.matches) set(false); });
 })();
 
 // Reveal blocks as they enter the viewport, from below when scrolling down
