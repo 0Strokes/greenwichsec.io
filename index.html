@@ -68,7 +68,9 @@ html{-webkit-text-size-adjust:100%}
 .gs-nav.is-open .gs-links a.gs-btn{margin-top:12px;padding:16px 20px!important;border-top:0;text-align:center}
 #top{padding-bottom:64px!important}
 #top > div:last-child{margin-top:48px!important}
-#top img.gs-spin{max-width:340px!important}
+.gs-clock{flex:0 0 auto!important;width:min(100%,360px);aspect-ratio:1;margin:12px auto 0}
+.gs-clock .gs-glow,.gs-clock .gs-ring{width:100%!important}
+.gs-clock img.gs-spin{width:84%!important}
 #top .gs-btn,#top .gs-ghost{flex:1 1 100%;text-align:center}
 .gs-band > div{padding-top:64px!important;padding-bottom:64px!important}
 #services,#method,#lab,#about{padding-top:88px!important}
@@ -141,8 +143,8 @@ html{-webkit-text-size-adjust:100%}
 <a href="#services" class="gs-ghost" style="color: #F2E8D5; text-decoration: none; font-family: Montserrat, sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; padding: 17px 30px; border: 1px solid rgba(242,232,213,0.3); border-radius: 2px">View services</a>
 </div>
 </div>
-<div style="flex: 1 1 440px; min-width: 0; position: relative; display: flex; justify-content: center; align-items: center">
-<div aria-hidden="true" style="position: absolute; width: 118%; max-width: 640px; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,69,58,0.2), rgba(232,69,58,0.04) 60%, rgba(10,10,10,0) 100%)"></div>
+<div class="gs-clock" style="flex: 1 1 440px; min-width: 0; position: relative; display: flex; justify-content: center; align-items: center">
+<div class="gs-glow" aria-hidden="true" style="position: absolute; width: 118%; max-width: 640px; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,69,58,0.2), rgba(232,69,58,0.04) 60%, rgba(10,10,10,0) 100%)"></div>
 <svg class="gs-ring" aria-hidden="true" viewBox="0 0 200 200" style="position: absolute; width: 112%; max-width: 620px; height: auto">
 <circle cx="100" cy="100" r="97" fill="none" stroke="rgba(242,232,213,0.16)" stroke-width="0.3" stroke-dasharray="0.4 2.1"/>
 <circle cx="100" cy="100" r="99.5" fill="none" stroke="rgba(232,69,58,0.35)" stroke-width="0.25"/>
