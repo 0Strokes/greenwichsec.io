@@ -303,8 +303,8 @@ html{-webkit-text-size-adjust:100%}
 .gs-arrow{display:none}
 .gs-steps{row-gap:44px!important}
 .gs-steps > div{padding-right:0!important}
-.gs-panther{min-height:240px!important;padding:32px!important}
-.gs-panther img{max-width:200px!important}
+.gs-mark{min-height:240px!important;padding:32px!important}
+.gs-mark img{max-width:200px!important}
 .gs-about-body{padding:8px 24px 40px!important}
 .gs-card{padding:28px 24px!important}
 .gs-form{padding:24px!important}

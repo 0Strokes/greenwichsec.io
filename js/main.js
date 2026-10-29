@@ -78,7 +78,7 @@
     '#method > div:nth-child(2) > div',     // method steps
     '#method > div:last-child > div:last-child', // sample finding
     '#training > div:last-child',           // workshop syllabus
-    '#about > div:first-child > div:first-child', // panther
+    '#about > div:first-child > div:first-child', // fox mark
     '#about > div:first-child > div:last-child > div:last-child > div', // team traits
     '#about > div:nth-child(3) > div',      // experience stats
     '#contact > div > div:last-child'       // email

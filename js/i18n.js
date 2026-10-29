@@ -203,7 +203,7 @@
     description: 'Equipo de seguridad ofensiva con enfoque en investigación: pruebas de penetración, revisiones de seguridad, estrategia y desarrollo seguro, cloud y Kubernetes, red team, identidad, CI/CD, workshops y capacitación.',
     alt: {
       'Greenwich Security Labs astronomical clock mark': 'Reloj astronómico, logotipo de Greenwich Security Labs',
-      'Greenwich panther mark': 'Pantera, logotipo de Greenwich Security Labs'
+      'Greenwich fox mark': 'Zorro, logotipo de Greenwich Security Labs'
     }
   };
 

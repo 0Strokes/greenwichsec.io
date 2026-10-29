@@ -9,7 +9,7 @@ Marketing site for Greenwich Security Labs. Plain static HTML, no build step.
 ├── js/boot.js        # flags that JS runs, before first paint
 ├── js/main.js        # GMT clock, scroll effects, counters, terminal, contact mailto
 ├── js/i18n.js        # EN/ES switch: Spanish strings keyed by the English text
-├── assets/img/       # clock + panther marks (WebP), favicon, social preview image
+├── assets/img/       # clock mark (WebP), fox mark (SVG), favicon, social preview image
 ├── assets/fonts/     # self-hosted WOFF2 fonts (latin subset) and their SIL OFL licences
 ├── .well-known/      # security.txt (renew Expires yearly)
 ├── .nojekyll         # lets GitHub Pages serve .well-known/
