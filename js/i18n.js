@@ -183,6 +183,8 @@
     'reference point.': 'su seguridad.',
     'Tell us what you need tested or taught. We reply within one business day with questions and a proposed scope.':
       'Cuéntenos qué necesita evaluar o en qué área desea capacitar a su equipo. Respondemos en un día hábil con preguntas y una propuesta de alcance.',
+    'Based in Latin America. Working in English and Spanish across the Americas and Europe.':
+      'Con base en Latinoamérica. Trabajamos en inglés y español en toda América y Europa.',
     'Name': 'Nombre',
     'Company': 'Empresa',
     'Work email': 'Correo corporativo',
