@@ -200,6 +200,6 @@ var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
       '',
       v('msg')
     ].join('\n');
-    window.location.href = 'mailto:hello@greenwichsec.io?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    window.location.href = 'mailto:info@greenwichsec.io?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
   });
 })();
