@@ -42,6 +42,13 @@ input:focus,select:focus,textarea:focus{outline:2px solid #E8453A;outline-offset
 .gs-lang button:hover{color:#F2E8D5}
 .gs-lang button[aria-pressed="true"]{color:#E8453A}
 html[lang="es"] #top h1{font-size:clamp(42px, 5.2vw, 78px)!important}
+.gs-type{display:inline-block;vertical-align:bottom;overflow:hidden;white-space:pre}
+.js .gs-term:not(.is-done) .gs-type{width:0}
+.gs-type.is-active{box-shadow:inset -2px 0 0 #E8453A}
+.gs-spot{position:relative;isolation:isolate}
+.gs-spot::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s ease;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(232,69,58,.11),transparent 65%)}
+.gs-spot:hover::before{opacity:1}
+@media (hover: none){.gs-spot::before{display:none}}
 .gs-progress{position:fixed;top:0;left:0;right:0;height:2px;background:#E8453A;transform-origin:0 50%;transform:scaleX(0);z-index:60;pointer-events:none}
 .gs-nav{position:sticky;top:0;z-index:50;border-bottom:1px solid transparent;transition:transform .5s cubic-bezier(.2,.7,.2,1),background-color .3s ease,border-color .3s ease}
 .gs-nav.is-stuck{background:rgba(10,10,10,.82);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom-color:rgba(242,232,213,.1)}
@@ -93,7 +100,7 @@ html{-webkit-text-size-adjust:100%}
 #about > div:nth-child(3) > div{padding-right:16px!important}
 .gs-wordmark{padding:32px 0 0!important;font-size:15vw!important}
 }
-@media (prefers-reduced-motion: reduce){.gs-spin,.gs-ring,.gs-dot{animation:none}html{scroll-behavior:auto}.gs-nav{transition:none}.js .gs-reveal,.js[data-dir="up"] .gs-reveal:not(.is-in){opacity:1;transform:none;transition:none}}
+@media (prefers-reduced-motion: reduce){.js .gs-term:not(.is-done) .gs-type{width:auto}.gs-spot::before{display:none}.gs-spin,.gs-ring,.gs-dot{animation:none}html{scroll-behavior:auto}.gs-nav{transition:none}.js .gs-reveal,.js[data-dir="up"] .gs-reveal:not(.is-in){opacity:1;transform:none;transition:none}}
 </style>
 </head>
 <body>
@@ -112,7 +119,7 @@ html{-webkit-text-size-adjust:100%}
 <div class="gs-nav">
 <div class="gs-wrap" style="max-width: 1320px; margin: 0 auto; padding: 18px 40px; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px">
 <a href="#top" style="display: flex; align-items: center; gap: 14px; text-decoration: none">
-<img src="assets/img/clock.png" alt="" style="width: 44px; height: 44px; object-fit: cover; mix-blend-mode: lighten">
+<img src="assets/img/clock-88.webp" alt="" style="width: 44px; height: 44px; object-fit: cover; mix-blend-mode: lighten">
 <span style="display: flex; flex-direction: column; line-height: 1.15">
 <span style="font-family: Montserrat, sans-serif; font-weight: 700; font-size: 18px; letter-spacing: 0.08em; color: #F2E8D5">GREENWICH</span>
 <span style="font-family: Montserrat, sans-serif; font-weight: 600; font-size: 9.5px; letter-spacing: 0.38em; color: #E8453A">SECURITY LABS</span>
@@ -150,7 +157,7 @@ html{-webkit-text-size-adjust:100%}
 <circle cx="100" cy="100" r="97" fill="none" stroke="rgba(242,232,213,0.16)" stroke-width="0.3" stroke-dasharray="0.4 2.1"/>
 <circle cx="100" cy="100" r="99.5" fill="none" stroke="rgba(232,69,58,0.35)" stroke-width="0.25"/>
 </svg>
-<img class="gs-spin" src="assets/img/clock.png" alt="Greenwich Security Labs astronomical clock mark" style="position: relative; width: 100%; max-width: 540px; height: auto; border-radius: 50%; mix-blend-mode: lighten">
+<img class="gs-spin" src="assets/img/clock.webp" width="974" height="902" alt="Greenwich Security Labs astronomical clock mark" style="position: relative; width: 100%; max-width: 540px; height: auto; border-radius: 50%; mix-blend-mode: lighten">
 </div>
 </div>
 
@@ -340,10 +347,10 @@ html{-webkit-text-size-adjust:100%}
 <div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8F8676">Path</div><div style="color: #F2E8D5">Fork → runner → registry</div></div>
 <div><div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8F8676">Fix effort</div><div style="color: #F2E8D5">Low</div></div>
 </div>
-<div style="background: #0A0A0A; border: 1px solid rgba(242,232,213,0.08); border-radius: 2px; padding: 16px 18px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.75; color: #BDB4A3; overflow-x: auto; white-space: pre">
-<span style="color: #8F8676">$</span> step 1  open PR from fork with modified workflow
-<span style="color: #8F8676">$</span> step 2  read mounted runner credentials
-<span style="color: #E8453A">!</span> step 3  push signed image to release registry</div>
+<div class="gs-term" style="background: #0A0A0A; border: 1px solid rgba(242,232,213,0.08); border-radius: 2px; padding: 16px 18px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.75; color: #BDB4A3; overflow-x: auto; white-space: pre">
+<span style="color: #8F8676">$</span> <span class="gs-type">step 1  open PR from fork with modified workflow</span>
+<span style="color: #8F8676">$</span> <span class="gs-type">step 2  read mounted runner credentials</span>
+<span style="color: #E8453A">!</span> <span class="gs-type">step 3  push signed image to release registry</span></div>
 </div>
 </div>
 </div>
@@ -391,7 +398,7 @@ html{-webkit-text-size-adjust:100%}
 <div class="gs-wrap" id="about" style="max-width: 1320px; margin: 0 auto; padding: 136px 40px 40px; box-sizing: border-box">
 <div style="position: relative; overflow: hidden; border-radius: 4px; background: #0F0F0F; border: 1px solid rgba(242,232,213,0.12); display: flex; flex-wrap: wrap; align-items: stretch">
 <div class="gs-panther" style="flex: 1 1 380px; min-height: 380px; position: relative; display: flex; align-items: center; justify-content: center; background: radial-gradient(closest-side, rgba(232,69,58,0.18), rgba(15,15,15,0) 75%); padding: 48px; box-sizing: border-box">
-<img src="assets/img/panther.png" alt="Greenwich panther mark" style="width: 100%; max-width: 320px; height: auto; mix-blend-mode: lighten">
+<img src="assets/img/panther.webp" width="610" height="686" alt="Greenwich panther mark" style="width: 100%; max-width: 320px; height: auto; mix-blend-mode: lighten">
 </div>
 <div class="gs-about-body" style="flex: 1.4 1 480px; min-width: 0; padding: 64px 56px; box-sizing: border-box; display: flex; flex-direction: column; gap: 32px">
 <div class="gs-eyebrow" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #E8453A">04 / The team</div>
@@ -426,15 +433,15 @@ html{-webkit-text-size-adjust:100%}
 </div>
 <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); border-top: 1px solid rgba(242,232,213,0.12)">
 <div style="padding: 28px 28px 0 0; display: flex; flex-direction: column; gap: 6px">
-<div style="font-family: Montserrat, sans-serif; font-weight: 700; font-size: clamp(36px, 3.6vw, 52px); line-height: 1; letter-spacing: -0.03em; color: #F2E8D5">19+</div>
+<div style="font-family: Montserrat, sans-serif; font-weight: 700; font-size: clamp(36px, 3.6vw, 52px); line-height: 1; letter-spacing: -0.03em; color: #F2E8D5" data-count="19" data-suffix="+">19+</div>
 <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8F8676">Years combined</div>
 </div>
 <div style="padding: 28px 28px 0 0; display: flex; flex-direction: column; gap: 6px">
-<div style="font-family: Montserrat, sans-serif; font-weight: 700; font-size: clamp(36px, 3.6vw, 52px); line-height: 1; letter-spacing: -0.03em; color: #F2E8D5">39</div>
+<div style="font-family: Montserrat, sans-serif; font-weight: 700; font-size: clamp(36px, 3.6vw, 52px); line-height: 1; letter-spacing: -0.03em; color: #F2E8D5" data-count="39">39</div>
 <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8F8676">CVEs published</div>
 </div>
 <div style="padding: 28px 28px 0 0; display: flex; flex-direction: column; gap: 6px">
-<div style="font-family: Montserrat, sans-serif; font-weight: 700; font-size: clamp(36px, 3.6vw, 52px); line-height: 1; letter-spacing: -0.03em; color: #F2E8D5">2</div>
+<div style="font-family: Montserrat, sans-serif; font-weight: 700; font-size: clamp(36px, 3.6vw, 52px); line-height: 1; letter-spacing: -0.03em; color: #F2E8D5" data-count="2">2</div>
 <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8F8676">Exploit certifications: OSED, GXPN</div>
 </div>
 <div style="padding: 28px 0 0 0; display: flex; flex-direction: column; gap: 6px">

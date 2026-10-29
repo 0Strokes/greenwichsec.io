@@ -5,9 +5,11 @@ Marketing site for Greenwich Security Labs. Plain static HTML, no build step.
 ```
 .
 ├── index.html        # the homepage
-├── js/main.js        # live GMT clock, contact form mailto
+├── js/main.js        # GMT clock, scroll effects, counters, terminal, contact mailto
 ├── js/i18n.js        # EN/ES switch: Spanish strings keyed by the English text
-├── assets/img/       # clock + panther marks, favicon, social preview image
+├── assets/img/       # clock + panther marks (WebP), favicon, social preview image
+├── .well-known/      # security.txt (renew Expires yearly)
+├── .nojekyll         # lets GitHub Pages serve .well-known/
 └── CNAME             # custom domain for GitHub Pages
 ```
 
@@ -43,4 +45,4 @@ Then in the repo: Settings > Pages > Custom domain `greenwichsec.io`, and tick "
 - Optional: send the contact form to a backend (Formspree, a Cloudflare Worker) instead of opening a pre-filled email.
 - Add credentials (certifications, CVEs, talks) and a PGP key if you want them on the page.
 - Move inline styles into a stylesheet with CSS variables.
-- Add `security.txt` under `.well-known/` and a responsible disclosure page.
+- Add a responsible disclosure page.

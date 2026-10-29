@@ -1,0 +1,8 @@
+# Greenwich Security Labs vulnerability disclosure contact.
+# If you found a security issue in one of our sites or services, please
+# write to us. We reply within one business day.
+
+Contact: mailto:hello@greenwichsec.io
+Expires: 2027-10-29T00:00:00.000Z
+Preferred-Languages: en, es
+Canonical: https://greenwichsec.io/.well-known/security.txt

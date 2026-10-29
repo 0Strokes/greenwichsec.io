@@ -111,6 +111,78 @@
   els.forEach(function (el) { io.observe(el); });
 })();
 
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Count stats up from zero the first time they come into view.
+(function () {
+  var els = document.querySelectorAll('[data-count]');
+  if (!els.length || reduceMotion || !('IntersectionObserver' in window)) return;
+  function run(el) {
+    var target = +el.dataset.count, suffix = el.dataset.suffix || '', start = null;
+    function frame(t) {
+      if (start === null) start = t;
+      var p = Math.min((t - start) / 1400, 1);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + suffix;
+      if (p < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      run(e.target);
+    });
+  }, { threshold: 0.6 });
+  els.forEach(function (el) { el.textContent = '0' + (el.dataset.suffix || ''); io.observe(el); });
+})();
+
+// Type out the sample finding's terminal, one line after another, the first
+// time it scrolls into view. Lines are revealed by width, so the text itself
+// is never rewritten and the language switch keeps working.
+(function () {
+  var term = document.querySelector('.gs-term');
+  if (!term) return;
+  if (reduceMotion || !('IntersectionObserver' in window) || !term.animate) { term.classList.add('is-done'); return; }
+  var lines = term.querySelectorAll('.gs-type');
+  function typeLine(i) {
+    if (i >= lines.length) { term.classList.add('is-done'); return; }
+    var el = lines[i], n = el.textContent.length;
+    el.classList.add('is-active');
+    var anim = el.animate([{ width: '0ch' }, { width: n + 'ch' }], { duration: n * 32, easing: 'steps(' + n + ')', fill: 'forwards' });
+    anim.onfinish = function () {
+      el.style.width = 'auto';
+      anim.cancel();
+      el.classList.remove('is-active');
+      setTimeout(function () { typeLine(i + 1); }, 280);
+    };
+  }
+  var io = new IntersectionObserver(function (entries) {
+    if (!entries[0].isIntersecting) return;
+    io.disconnect();
+    setTimeout(function () { typeLine(0); }, 500);
+  }, { threshold: 0.6 });
+  io.observe(term);
+})();
+
+// A soft glow that follows the pointer across cards.
+(function () {
+  if (!window.matchMedia('(hover: hover)').matches || reduceMotion) return;
+  document.querySelectorAll([
+    '.gs-card', '.gs-form',
+    '#training > div:last-child',
+    '#method > div:last-child > div:last-child',
+    '#about > div:first-child'
+  ].join(',')).forEach(function (el) {
+    el.classList.add('gs-spot');
+    el.addEventListener('pointermove', function (e) {
+      var r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
+})();
+
 // Contact form: open a pre-filled email, since the site has no backend.
 (function () {
   var form = document.getElementById('gs-form');
