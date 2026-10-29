@@ -193,7 +193,7 @@
     'Red team operation': 'Operación de red team',
     'Not sure yet': 'Aún no lo tengo definido',
     'What should we know': '¿Qué deberíamos saber?',
-    'Opens a pre-filled email to our team. Never shared.': 'Se abrirá un correo con esta información dirigido a nuestro equipo. Sus datos no se comparten con terceros.',
+    'Goes straight to our team. Used only to reply to you.': 'Llega directamente a nuestro equipo. Solo la usamos para responderle.',
     'Send request': 'Enviar solicitud',
     'Responsible disclosure': 'Divulgación responsable'
   };

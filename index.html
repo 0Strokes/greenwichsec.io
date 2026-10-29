@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; form-action 'self'; base-uri 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src https://api.web3forms.com; form-action 'self'; base-uri 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Greenwich Security Labs | Offensive security laboratory</title>
 <meta name="description" content="Greenwich Security Labs is a research-led offensive security team: penetration testing, security reviews, cloud and Kubernetes, red teaming, identity and CI/CD security, security strategy and Secure SDLC, plus hands-on workshops and training.">
@@ -420,10 +420,12 @@
 <label class="s120" for="gs-msg">What should we know</label>
 <textarea class="s123" id="gs-msg" name="msg" rows="4"></textarea>
 </div>
+<input class="gs-hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
 <div class="s124">
-<span class="s125">Opens a pre-filled email to our team. Never shared.</span>
+<span class="s125">Goes straight to our team. Used only to reply to you.</span>
 <button type="submit" class="gs-btn s126">Send request</button>
 </div>
+<p class="gs-status" role="status" aria-live="polite" hidden></p>
 </form>
 </div>
 

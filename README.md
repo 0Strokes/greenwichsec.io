@@ -22,13 +22,17 @@ The page is written in English. `js/i18n.js` swaps each text node for its Spanis
 
 ## Content Security Policy
 
-The page loads nothing from other origins and has no inline styles or scripts, so it runs under a strict CSP:
+The page loads nothing from other origins (the only outside call is the contact form posting to Web3Forms) and has no inline styles or scripts, so it runs under a strict CSP:
 
 ```
-default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'
+default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src https://api.web3forms.com; form-action 'self'; base-uri 'none'; frame-ancestors 'none'
 ```
 
 Keep it that way: no `style=""` attributes, `<style>` or `<script>` blocks, `on*=` handlers or third-party URLs. Put new styles in `css/site.css` and new code in `js/`. The `<meta>` copy in `index.html` covers GitHub Pages on its own; the full set of headers (including `frame-ancestors`, HSTS and the rest) is added by Cloudflare in front of Pages.
+
+## Contact form
+
+The form posts to [Web3Forms](https://web3forms.com), which emails each enquiry to the address the access key in `js/main.js` was created with (reply-to is the sender). The key is public by design. To send enquiries somewhere else, create a new key for that address and replace `WEB3FORMS_KEY`. If the request fails, the form falls back to opening a pre-filled email to info@.
 
 ## Run locally
 
@@ -55,7 +59,6 @@ Then in the repo: Settings > Pages > Custom domain `greenwichsec.io`, and tick "
 ## Still to do
 
 - Replace the research focus areas with real posts once they are published.
-- Optional: send the contact form to a backend (Formspree, a Cloudflare Worker) instead of opening a pre-filled email.
 - Add credentials (certifications, CVEs, talks) and a PGP key if you want them on the page.
 - Give the generated `s*` classes in `css/site.css` meaningful names, with CSS variables for the palette.
 - Add a responsible disclosure page.

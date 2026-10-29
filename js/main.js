@@ -183,23 +183,61 @@ var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   });
 })();
 
-// Contact form: open a pre-filled email, since the site has no backend.
+// Contact form: deliver through Web3Forms, which emails the team. The access
+// key is public by design (it can only send mail to us). If the request fails,
+// fall back to opening a pre-filled email so no enquiry is lost.
 (function () {
   var form = document.getElementById('gs-form');
   if (!form) return;
+  var WEB3FORMS_KEY = '80acc8ca-37d1-4808-94ee-89521ad239bd';
+  var btn = form.querySelector('button[type="submit"]');
+  var status = form.querySelector('.gs-status');
+  function say(text, error) {
+    status.textContent = text;
+    status.classList.toggle('is-error', !!error);
+    status.hidden = false;
+  }
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var v = function (name) { return (form.elements[name].value || '').trim(); };
     var es = document.documentElement.lang === 'es';
     var subject = (es ? 'Consulta: ' : 'Enquiry: ') + v('service') + (v('company') ? ' · ' + v('company') : '');
-    var body = [
-      (es ? 'Nombre: ' : 'Name: ') + v('name'),
-      (es ? 'Empresa: ' : 'Company: ') + v('company'),
-      'Email: ' + v('email'),
-      (es ? 'Servicio: ' : 'Service: ') + v('service'),
-      '',
-      v('msg')
-    ].join('\n');
-    window.location.href = 'mailto:info@greenwichsec.io?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    function mailto() {
+      var body = [
+        (es ? 'Nombre: ' : 'Name: ') + v('name'),
+        (es ? 'Empresa: ' : 'Company: ') + v('company'),
+        'Email: ' + v('email'),
+        (es ? 'Servicio: ' : 'Service: ') + v('service'),
+        '',
+        v('msg')
+      ].join('\n');
+      window.location.href = 'mailto:info@greenwichsec.io?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    }
+    if (!window.fetch) { mailto(); return; }
+    btn.disabled = true;
+    say(es ? 'Enviando…' : 'Sending…');
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_KEY,
+        subject: subject,
+        from_name: 'greenwichsec.io',
+        botcheck: form.elements.botcheck.checked,
+        name: v('name'),
+        email: v('email'),
+        company: v('company'),
+        service: v('service'),
+        message: v('msg'),
+        language: es ? 'es' : 'en'
+      })
+    }).then(function (r) { return r.json(); }).then(function (res) {
+      if (!res.success) throw new Error(res.message);
+      form.reset();
+      say(es ? 'Gracias. Recibimos su mensaje y le responderemos en un día hábil.' : 'Thank you. We have your message and will reply within one business day.');
+    }).catch(function () {
+      say(es ? 'No pudimos enviarlo desde aquí, así que abrimos un correo a info@greenwichsec.io.' : 'We could not send it from here, so we opened an email to info@greenwichsec.io instead.', true);
+      mailto();
+    }).then(function () { btn.disabled = false; });
   });
 })();
